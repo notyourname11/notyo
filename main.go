@@ -7,19 +7,13 @@ type Car struct {
 	Year  int
 }
 
-func main() {
-	// Создание объекта структуры
-	car := Car{
-		Brand: "Porsche",
-		Year:  2020,
-	}
-	updateCarYear(car)
+func updateCarYearPointer(car *Car) {
+	car.Year++
 
-	fmt.Println(car)
 }
 
-func updateCarYear(car Car) {
-	car.Year++
+func main() {
+	car := Car{Brand: "Porsche", Year: 2020}
+	updateCarYearPointer(&car)
 	fmt.Println(car)
-
 }
