@@ -1,40 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-type Movable interface {
-	Move() string
+func divide(a, b int) (int, error) {
+	if b == 0 {
+		return 0, errors.New("нельзя делить на ноль")
+	}
+	return a / b, nil
 }
 
-func (c Car) Move() string {
-	return c.Brand + " Мчится со скоростью " + c.Speed
-}
-
-type Car struct {
-	Brand string
-	Speed string
-}
-
-type Person struct {
-	Name string
-	Age  string
-
-	Speed string
-}
-
-func (p Person) Move() string {
-	return p.Name + " Идет со скоростью " + p.Speed
-}
-
-func printMovement(m Movable) {
-	fmt.Println(m.Move())
+func validateAge(age int) error {
+	if age == 0 {
+		return errors.New("некорректный возраст")
+	}
+	return nil
 }
 
 func main() {
+	result, err := divide(10, 0)
+	if err != nil { // Если ошибка не nil, то есть если есть ошибка
+		fmt.Println("Ошибка:", err)
+	} else {
+		fmt.Println("Результат:", result)
+	}
+	err = validateAge(0)
+	if err != nil {
+		fmt.Println("Ошибка:", err)
+	} else {
+		fmt.Println("Возраст корректен")
 
-	Porsche := Car{Brand: "Porsche", Speed: "250"}
-	Andrey := Person{Name: "Andrey", Age: "20", Speed: "10"}
-	printMovement(Porsche)
-	printMovement(Andrey)
-
+	}
 }
