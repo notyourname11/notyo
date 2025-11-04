@@ -3,19 +3,19 @@ package main
 import "fmt"
 
 func main() {
-	type Laptop struct {
-		Brand string
-		Price int
+	menu := map[string]float64{
+		"Fruits": 500,
+		"Tea":    200,
 	}
+	menu["Desert"] = 300
+	menu["Салат"] = 600
 
-	laptop := []Laptop{
-		{Brand: "Apple", Price: 300}, {Brand: "HP", Price: 200},
-	}
-	laptop[1] = Laptop{Brand: "HP", Price: 180}
-	newLaptop := Laptop{Brand: "MSI", Price: 200}
-	laptop = append(laptop, newLaptop)
+	delete(menu, "Салат")
 
-	for index, laptop := range laptop {
-		fmt.Printf("%d. %s by %d\n", index, laptop.Brand, laptop.Price)
+	value, ok := menu["Салат"]
+	fmt.Println("Салат", value, ok)
+
+	for item, price := range menu {
+		fmt.Printf("%s стоит %.2f рублей\n", item, price)
 	}
 }
