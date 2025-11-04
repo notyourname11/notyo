@@ -2,18 +2,20 @@ package main
 
 import "fmt"
 
-type Car struct {
-	Brand string
-	Year  int
-}
-
-func updateCarYearPointer(car *Car) {
-	car.Year++
-
-}
-
 func main() {
-	car := Car{Brand: "Porsche", Year: 2020}
-	updateCarYearPointer(&car)
-	fmt.Println(car)
+	type Laptop struct {
+		Brand string
+		Price int
+	}
+
+	laptop := []Laptop{
+		{Brand: "Apple", Price: 300}, {Brand: "HP", Price: 200},
+	}
+	laptop[1] = Laptop{Brand: "HP", Price: 180}
+	newLaptop := Laptop{Brand: "MSI", Price: 200}
+	laptop = append(laptop, newLaptop)
+
+	for index, laptop := range laptop {
+		fmt.Printf("%d. %s by %d\n", index, laptop.Brand, laptop.Price)
+	}
 }
