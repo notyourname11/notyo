@@ -2,20 +2,20 @@ package main
 
 import "fmt"
 
-// fibonacci is a function that returns
-// a function that returns an int.
-func fibonacci() func() int {
-	a, b := 0, 1
-	return func() int {
+type IPAddr [4]byte
 
-		a, b = b, a+b
-		return a
-	}
+func (ip IPAddr) String() string {
+	return fmt.Sprintf("%v.%v.%v.%v.", ip[0], ip[1], ip[2], ip[3])
 }
 
+// TODO: Add a "String() string" method to IPAddr.
+
 func main() {
-	f := fibonacci()
-	for i := 0; i < 10; i++ {
-		fmt.Println(f())
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
 	}
 }
