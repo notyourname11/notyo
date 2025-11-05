@@ -1,23 +1,21 @@
 package main
 
-import (
-	"strings"
+import "fmt"
 
-	"golang.org/x/tour/wc"
-)
+// fibonacci is a function that returns
+// a function that returns an int.
+func fibonacci() func() int {
+	a, b := 0, 1
+	return func() int {
 
-func WordCount(s string) map[string]int {
-	m := make(map[string]int)
-	for _, v := range strings.Fields(s) {
-		_, ok := m[v]
-		if !ok {
-			m[v] = 0
-		}
-		m[v]++
+		a, b = b, a+b
+		return a
 	}
-	return m
 }
 
 func main() {
-	wc.Test(WordCount)
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
 }
