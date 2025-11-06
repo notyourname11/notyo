@@ -2,21 +2,30 @@ package main
 
 import "fmt"
 
-type Person struct {
+type Animal struct {
 	Name string
-	Age  int
 }
 
-func (p Person) String() string {
-	return fmt.Sprintf(" %s (%d)", p.Name, p.Age)
+type Dog struct {
+	Animal Animal
+}
+
+func (d Dog) Bark() {
+	fmt.Printf("%s гавкает\n", d.Animal)
+}
+
+func (a Animal) Speak() {
+	fmt.Printf("%s издает какой-то звук\n", a.Name)
 }
 
 func main() {
-	alice := Person{Name: "Alice", Age: 30}
-	fmt.Println(alice)
+	dog := Dog{
+		Animal: Animal{
+			Name: "Rex",
+		},
+	}
 
-}
+	dog.Bark()
+	dog.Animal.Speak()
 
-type Stringer interface {
-	String() string
 }
