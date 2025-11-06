@@ -1,31 +1,40 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Animal struct {
-	Name string
+type Shape interface {
+	Area() float64
 }
 
-type Dog struct {
-	Animal Animal
+type Rectangle struct {
+	Width  float64
+	Height float64
 }
 
-func (d Dog) Bark() {
-	fmt.Printf("%s гавкает\n", d.Animal)
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
 }
 
-func (a Animal) Speak() {
-	fmt.Printf("%s издает какой-то звук\n", a.Name)
+type Circle struct {
+	Radius float64
+}
+
+func (c Circle) Area() float64 {
+	return 3.14 * c.Radius * c.Radius
 }
 
 func main() {
-	dog := Dog{
-		Animal: Animal{
-			Name: "Rex",
-		},
+	shapes := []Shape{
+		Rectangle{Width: 3, Height: 4},
+		Circle{Radius: 2.5},
 	}
 
-	dog.Bark()
-	dog.Animal.Speak()
-
+	var total float64
+	for _, s := range shapes {
+		fmt.Println("Площадь:", s.Area())
+		total += s.Area()
+	}
+	fmt.Println("Общая площадь:", total)
 }
