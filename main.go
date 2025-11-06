@@ -2,13 +2,19 @@ package main
 
 import "fmt"
 
-func main() {
-	in := []int{5, 4, 9, 2, 7, 6}
-	for i := len(in) - 1; i >= 0; i-- {
-		if in[i]%2 != 0 {
-			in = append(in[:i], in[i+1:]...)
-		}
-	}
-	fmt.Println((in))
+// Rectangle описывает прямоугольник.
+type Rectangle struct {
+	Width, Height float64
+}
 
+// Area должна вернуть площадь прямоугольника.
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+	// TODO: реализуйте
+}
+
+func main() {
+	r := Rectangle{Width: 3, Height: 4}
+	fmt.Println(r.Area())
+	// Ожидаемый вывод: 12
 }
