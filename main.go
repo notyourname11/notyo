@@ -2,19 +2,21 @@ package main
 
 import "fmt"
 
-// Rectangle описывает прямоугольник.
-type Rectangle struct {
-	Width, Height float64
+type Person struct {
+	Name string
+	Age  int
 }
 
-// Area должна вернуть площадь прямоугольника.
-func (r Rectangle) Area() float64 {
-	return r.Width * r.Height
-	// TODO: реализуйте
+func (p Person) String() string {
+	return fmt.Sprintf(" %s (%d)", p.Name, p.Age)
 }
 
 func main() {
-	r := Rectangle{Width: 3, Height: 4}
-	fmt.Println(r.Area())
-	// Ожидаемый вывод: 12
+	alice := Person{Name: "Alice", Age: 30}
+	fmt.Println(alice)
+
+}
+
+type Stringer interface {
+	String() string
 }
