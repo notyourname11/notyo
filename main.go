@@ -1,31 +1,22 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-type ErrNegativeSqrt float64
-
-func (e ErrNegativeSqrt) Error() string {
-	return fmt.Sprint("cannot Sqrt negative number:", float64(e))
-}
-
-func Sqrt(x float64) (float64, error) {
-	if x < 0 {
-		return x, ErrNegativeSqrt(x)
+// SumInts возвращает сумму всех чисел nums.
+// Если срез пуст, должна вернуться 0.
+func SumInts(nums []int) int {
+	SumInts := 0
+	for index, _ := range nums {
+		SumInts += nums[index]
 	}
-	z := x / 2
-	t := 0.0
+	return SumInts
 
-	for math.Abs(z-t) > 0.000001 {
-		t = z
-		z -= (z*z - x) / (2 * z)
-	}
-	return z, nil
 }
 
 func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(Sqrt(-2))
+	fmt.Println(SumInts([]int{1, 2, 3}))
+	fmt.Println(SumInts([]int{}))
+	// Ожидаемый вывод:
+	// 6
+	// 0
 }
