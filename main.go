@@ -1,40 +1,42 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
-type Shape interface {
-	Area() float64
+type BankAccount struct {
+	balance float64
 }
 
-type Rectangle struct {
-	Width  float64
-	Height float64
+func NewAccount(initialBalance float64) *BankAccount {
+	return &BankAccount{balance: initialBalance}
 }
 
-func (r Rectangle) Area() float64 {
-	return r.Width * r.Height
+func (b *BankAccount) GetBalance() float64 {
+	return b.balance
 }
 
-type Circle struct {
-	Radius float64
+func (b *BankAccount) Deposit(amount float64) {
+	b.balance += amount
+
 }
 
-func (c Circle) Area() float64 {
-	return 3.14 * c.Radius * c.Radius
+func (b *BankAccount) Withdraw(amount float64) error {
+	if amount > b.balance {
+		return errors.New("недостаточно средств")
+	}
+	b.balance -= amount
+	return nil
 }
 
 func main() {
-	shapes := []Shape{
-		Rectangle{Width: 3, Height: 4},
-		Circle{Radius: 2.5},
-	}
+	acc := NewAccount(100)
+	fmt.Println("Изначальный баланс:", acc.GetBalance())
 
-	var total float64
-	for _, s := range shapes {
-		fmt.Println("Площадь:", s.Area())
-		total += s.Area()
-	}
-	fmt.Println("Общая площадь:", total)
+	acc.Deposit(10)
+	acc.Withdraw(20)
+
+	fmt.Println("Внесли 10 и сняли 20, итоговый баланс :", acc.GetBalance())
+
 }
